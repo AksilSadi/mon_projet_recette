@@ -13,6 +13,12 @@ export class Utilisateur {
   @Column()
   nom: string;
 
+  @Column()
+  prenom: string;
+
+  @Column({ type: 'enum', enum: ['cuisinier', 'visiteur'], default: 'visiteur' })
+  role: 'cuisinier' | 'visiteur';
+
   @Column({ unique: true })
   email: string;
 

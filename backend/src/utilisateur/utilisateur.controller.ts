@@ -20,6 +20,10 @@ export class UtilisateurController {
   create(@Body() body: Partial<Utilisateur>): Promise<Utilisateur> {
     return this.service.create(body);
   }
+  @Post('login')
+  login(@Body() body: { email: string; motDePasse: string }) {
+    return this.service.login(body.email, body.motDePasse);
+  }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() body: Partial<Utilisateur>): Promise<Utilisateur | null> {
@@ -30,4 +34,5 @@ export class UtilisateurController {
   delete(@Param('id') id: string): Promise<void> {
     return this.service.delete(+id);
   }
+
 }

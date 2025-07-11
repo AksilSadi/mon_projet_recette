@@ -1,26 +1,119 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+@media (min-width:768px) {
+    .hello{
+        width: 500px;
+    }
+    
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.hi{
+    height:100%
+}
+#error{
+    outline: none;
+    border: 2px solid red;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@media (max-width:359px) {
+   .aks{
+    width: 272px;
+    padding-left: 16px;
+    padding-right: 16px;
+    height: 456px;
+   }
+ 
+}
+@media (min-width:360px) and (max-width:379px) {
+    .aks{
+     width: 320px;
+     padding: 16px;
+    }
+  
+ }
+
+@media (min-width:380px) and (max-width:480px) {
+    .aks{
+     width: 340px;
+     padding: 16px;
+    }
+ }
+ @media (min-width:481px)  {
+    .aks{
+     width: 400px;
+     height: 500px;
+    }
+  
+ }
+ @media (min-width:481px) and (max-width:768px)  {
+    .aks{
+     width: 400px;
+     height: 500px;
+     padding: 40px;
+    }
+    
+ }
+
+.drop{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 180px;
+    cursor: pointer;
+}
+.icone{
+    font-size: 12px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    background-color: royalblue;
+    align-items: center;
+    padding: 4px;
+    border-radius: 50%;
+    transition: all 0.3s ease-in-out;
+}
+.rotate {
+    transform: rotate(-180deg);
+    transition: transform 0.3s ease-in-out; 
+}
+.list{
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    background-color: rgb(110, 110, 110);
+    border-radius: 10px;
+    overflow: hidden;
+    color:white;
+    transition: all 0.3s;
+    border: 1px solid white;
+}
+.list::-webkit-scrollbar {
+    width: 6px; /* Largeur de la barre de défilement */
   }
-}
+  
+  .list::-webkit-scrollbar-track {
+    background: transparent; /* Couleur de fond de la piste de défilement */
+  }
+  
+  .list::-webkit-scrollbar-thumb {
+    background: #888; /* Couleur de la poignée de défilement */
+    border-radius: 5px; /* Bordure arrondie de la poignée */
+  }
+.list li:hover{
+    transform: scale(1.05);
+    transition: all 0.3s;
+    background-color: rgba(0, 0, 0, 0.6);
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+.list li{
+    padding: 8px;
+}
+.boutton:hover{
+    transform: scale(1.05);
+    transition: all 0.3s;
+}
+.boutton{
+  transition: transform 0.3s ease; 
+  cursor: pointer;
 }

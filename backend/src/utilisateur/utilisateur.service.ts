@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Utilisateur } from './utilisateur.entity';
 import { Repository } from 'typeorm';
+import { NotFoundException, UnauthorizedException } from '@nestjs/common';
 
 @Injectable()
 export class UtilisateurService {
@@ -27,6 +28,22 @@ export class UtilisateurService {
     await this.utilisateurRepo.update(id, data);
     return this.findOne(id);
   }
+  async login(email: string, motDePasse: string) {
+  const utilisateur = await this.utilisateurRepo.findOneBy({ email });
+
+  if (!utilisateur) {
+    throw new NotFoundException("L'email n'existe pas. Veuillez créer un compte.");
+  }
+
+  if (utilisateur.motDePasse !== motDePasse) {
+    throw new UnauthorizedException('Mot de passe incorrect.');
+  }
+
+  return {
+    message: 'Connexion réussie',
+    utilisateur,
+  };
+}
 
   delete(id: number): Promise<void> {
     return this.utilisateurRepo.delete(id).then(() => undefined);
