@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body , Query , ParseIntPipe } from '@nestjs/common';
 import { IngredientService } from './ingredient.service';
 import { Ingredient } from './ingredient.entity';
 
@@ -6,10 +6,13 @@ import { Ingredient } from './ingredient.entity';
 export class IngredientController {
   constructor(private readonly service: IngredientService) {}
 
-  @Get()
-  findAll(): Promise<Ingredient[]> {
-    return this.service.findAll();
-  }
+@Get()
+findPaginated(
+  @Query('page', new ParseIntPipe()) page = 1,
+  @Query('limit', new ParseIntPipe()) limit = 5,
+) {
+  return this.service.findPaginated(page, limit);
+}
 
   @Get(':id')
   findOne(@Param('id') id: string): Promise<Ingredient | null> {

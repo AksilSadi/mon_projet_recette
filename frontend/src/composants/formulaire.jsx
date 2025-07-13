@@ -19,12 +19,7 @@ export default function Form({ isLogin }) {
     useEffect(() => {
     if (!ispending && state !== undefined) {
       if (state.success) {
-        const person={
-          email: state.data.email,
-          nom: state.data.nom,
-          prenom: state.data.prenom,
-          category: state.data.category,
-        }
+        const person= state.data.utilisateur;
         router.push("/accueil");
         toast.success(state.message || "Connexion réussie !");
         Cookies.set('user', JSON.stringify(person), { expires: 1 , secure: true, sameSite: 'strict' });

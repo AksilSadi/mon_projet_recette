@@ -4,9 +4,8 @@ import { Toaster, toast } from "react-hot-toast";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUtensils, faCarrot, faHeart, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'; 
 import Cookies from "js-cookie";
-
-
-
+import { UserProvider } from "../../context/UserContext";
+import Link  from "next/link";
 
 export default function RootLayout({ children }) {
   const handleLogout = () => {
@@ -15,12 +14,11 @@ export default function RootLayout({ children }) {
   };
 
   return (
-    <html lang="fr">
-      <body>
+    <div className="w-screen h-full">
         <Toaster position="top-center" /> 
 
         <div 
-          className="relative min-h-screen flex" 
+          className="relative w-screen min-h-screen flex" 
           style={{ 
             backgroundImage: "url('/background7.jpg')", 
             backgroundSize: "cover",
@@ -28,7 +26,7 @@ export default function RootLayout({ children }) {
             backgroundAttachment: "fixed",
           }}
         >
-          <div className="absolute inset-0 bg-black/30 z-0">
+          <div className="absolute inset-0 bg-black/40 z-0">
           </div>
           
           <div 
@@ -41,16 +39,16 @@ export default function RootLayout({ children }) {
 
             <ul className='flex flex-col w-full px-2'> 
               
-              <li className={`flex items-center py-2 h-14 rounded-2xl pl-3 hover:bg-white/10 transition-colors cursor-pointer`}>
+              <Link href="/accueil" className={`flex items-center py-2 h-14 rounded-2xl pl-3 hover:bg-white/10 transition-colors cursor-pointer`}>
                 <FontAwesomeIcon icon={faUtensils} className='text-lg w-5 text-white' />
                 <span className='ml-3 text-base text-white'>Recette</span> 
-              </li>
+              </Link>
 
              
-              <li className={`mt-1 flex items-center py-2 h-14 rounded-2xl pl-3 hover:bg-white/10 transition-colors cursor-pointer`}>
+              <Link href="/accueil/ingredient" className={`mt-1 flex items-center py-2 h-14 rounded-2xl pl-3 hover:bg-white/10 transition-colors cursor-pointer`}>
                 <FontAwesomeIcon icon={faCarrot} className='text-lg w-5 text-white' />
                 <span className='ml-3 text-base text-white'>Ingredients</span>
-              </li>
+              </Link>
 
               
               <li className={`mt-1 flex items-center py-2 h-14 rounded-2xl pl-3 hover:bg-white/10 transition-colors cursor-pointer`}>
@@ -60,21 +58,23 @@ export default function RootLayout({ children }) {
             </ul>
 
            
-            <div 
+            <Link href='/'
               className={`flex w-full px-2 items-center py-2 h-14 rounded-2xl pl-3 hover:bg-white/10 transition-colors cursor-pointer absolute bottom-4`}
               onClick={handleLogout}
             >
               <FontAwesomeIcon icon={faArrowRightFromBracket} className='text-lg w-5 text-white' />
               <span className='ml-3 text-white text-base'>Déconnecter</span>
-            </div>
+            </Link>
           </div>
-          <main>
-          {children}
+          <main className="w-full">
+            <UserProvider>
+              {children}
+            </UserProvider>
+          
         </main> 
         </div>
 
          
-      </body>
-    </html>
+      </div>
   );
 }

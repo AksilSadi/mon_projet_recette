@@ -14,6 +14,19 @@ export class RecetteService {
     return this.recetteRepo.find();
   }
 
+  async findPaginated(page: number, limit: number) {
+  const [data, total] = await this.recetteRepo.findAndCount({
+    skip: (page - 1) * limit,
+    take: limit,
+  });
+
+  return {
+    data,
+    total,
+    page,
+    lastPage: Math.ceil(total / limit),
+  };
+}
   findOne(id: number): Promise<Recette | null> {
     return this.recetteRepo.findOneBy({ id });
   }
