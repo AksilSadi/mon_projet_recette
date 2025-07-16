@@ -27,7 +27,7 @@ export default function favoris(){
         const fetchFavoris = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`http://localhost:4000/recettes/favoris?utilisateurId=${user?.id}&page=${page}&limit=16`);
+                const response = await axios.get(`https://backend-xxr1.onrender.com/recettes/favoris?utilisateurId=${user?.id}&page=${page}&limit=16`);
                 setFavoris(response.data.data);
             } catch (error) {
                 console.error("Error fetching favoris:", error);

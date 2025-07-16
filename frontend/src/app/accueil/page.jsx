@@ -45,7 +45,7 @@ export default function accueil(){
         const fetchRecettes = async () => {
             try {
                 setLoadingEffect(true)
-                let url=`http://localhost:4000/recettes/card?page=${page}&limit=16`;
+                let url=`https://backend-xxr1.onrender.com/recettes/card?page=${page}&limit=16`;
                 if(temps!="Temps"){
                     const tempsNombre=parseInt(temps.slice(1,3));
                     url+=`&temps=${tempsNombre}`

@@ -32,7 +32,7 @@ export default function DetailsRecette({ recette }) {
     useEffect(() => {
         const fetchIngredients = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/recettes/${recette.id}/ingredients`);
+                const response = await axios.get(`https://backend-xxr1.onrender.com/recettes/${recette.id}/ingredients`);
                 setIngredients(response.data.recetteIngredients);
             } catch (error) {
                 console.error("Error fetching ingredients:", error);
@@ -45,7 +45,7 @@ export default function DetailsRecette({ recette }) {
         const fetchAverageRating = async () => {
             try {
                 setLoadingRating(true);
-                const response = await axios.get(`http://localhost:4000/notation/recette/${recette.id}/average`);
+                const response = await axios.get(`https://backend-xxr1.onrender.com/notation/recette/${recette.id}/average`);
                 setAverageRating(response.data.average);
             } catch (error) {
                 console.error("Error fetching average rating:", error);
@@ -60,7 +60,7 @@ export default function DetailsRecette({ recette }) {
         const fetchLikeStatus = async () => {
             try {
                 setLoadingLike(true);
-                const response = await axios.get(`http://localhost:4000/favoris/is/${user.id}/${recette.id}`);
+                const response = await axios.get(`https://backend-xxr1.onrender.com/favoris/is/${user.id}/${recette.id}`);
                 setLiked(response.data.isFavori);
             } catch (error) {
                 console.error("Error fetching like status:", error);
@@ -75,7 +75,7 @@ export default function DetailsRecette({ recette }) {
         const fetchRating = async () => {
             try {
               setLoading(true);
-                const response = await axios.get(`http://localhost:4000/notation/recette/${recette.id}/utilisateur/${user.id}`);
+                const response = await axios.get(`https://backend-xxr1.onrender.com/notation/recette/${recette.id}/utilisateur/${user.id}`);
                 setNote(response.data.note);
             } catch (error) {
                 console.error("Error fetching rating:", error);
@@ -90,7 +90,7 @@ export default function DetailsRecette({ recette }) {
         const fetchComments = async () => {
             setLoadingComment(true);
             try {
-                const response = await axios.get(`http://localhost:4000/recettes/${recette.id}/commentaires`);
+                const response = await axios.get(`https://backend-xxr1.onrender.com/recettes/${recette.id}/commentaires`);
                 setComments(response.data);
             } catch (error) {
                 console.error("Error fetching comments:", error);
@@ -105,7 +105,7 @@ export default function DetailsRecette({ recette }) {
         setLoadingLike(true);
         try {
             if (liked) {
-                const response = await axios.delete(`http://localhost:4000/favoris`, {
+                const response = await axios.delete(`https://backend-xxr1.onrender.com/favoris`, {
                     data: {
                         utilisateurId: user.id,
                         recetteId: recette.id,
@@ -116,7 +116,7 @@ export default function DetailsRecette({ recette }) {
                     toast.success("Recette retirée de vos favoris");
                 }
             } else {
-                const response = await axios.post(`http://localhost:4000/favoris`, {
+                const response = await axios.post(`https://backend-xxr1.onrender.com/favoris`, {
                     utilisateurId: user.id,
                     recetteId: recette.id,
                 });
@@ -141,7 +141,7 @@ export default function DetailsRecette({ recette }) {
         }
         setLoadingAddComment(true);
         try {
-            const response = await axios.post(`http://localhost:4000/commentaire`, {
+            const response = await axios.post(`https://backend-xxr1.onrender.com/commentaire`, {
                 texte: comment,
                 recetteId: recette.id,
                 utilisateurId: user.id,
@@ -159,7 +159,7 @@ export default function DetailsRecette({ recette }) {
     };
     const handleDelete = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:4000/commentaire/${id}`);
+            const response = await axios.delete(`https://backend-xxr1.onrender.com/commentaire/${id}`);
             if (response.status === 200) {
                 toast.success("Commentaire supprimé avec succès");
                 setComments(comments.filter(c => c.id !== id));
@@ -176,7 +176,7 @@ export default function DetailsRecette({ recette }) {
         }
         setLoadingStar(true);
         try {
-            const response = await axios.post(`http://localhost:4000/notation`, {
+            const response = await axios.post(`https://backend-xxr1.onrender.com/notation`, {
                 note: note,
                 utilisateurId: user.id,
                 recetteId: recette.id,
@@ -314,7 +314,7 @@ export default function DetailsRecette({ recette }) {
                 </div>
             </div>
             <Image
-             src={`http://localhost:4000/file/${recette.image}`}
+             src={`https://backend-xxr1.onrender.com/file/${recette.image}`}
              className="h-80 object-cover w-[500px] rounded-lg"
                alt="Recette Image"
                width={500}

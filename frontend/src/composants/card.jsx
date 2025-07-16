@@ -6,7 +6,7 @@ export default function Card({recette, onClick}) {
     return (
         <div key={recette.id} className="flex flex-col rounded-lg w-56 mr-6 px-6 py-4 bg-white/15 backdrop-blur-md anime" onClick={()=>onClick(recette)}>
             <Image
-              src={`http://localhost:4000/file/${recette.image}`}
+              src={`https://backend-xxr1.onrender.com/file/${recette.image}`}
               className="h-80 object-cover w-[500px] rounded-lg"
                 alt="Recette Image"
                 width={500}

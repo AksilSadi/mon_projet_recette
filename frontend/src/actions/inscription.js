@@ -25,7 +25,7 @@ export default async function inscription(state, formData) {
   }
 
   try {
-    const response = await axios.post("http://localhost:4000/utilisateurs", {
+    const response = await axios.post("https://backend-xxr1.onrender.com/utilisateurs", {
       nom,
       prenom,
       email,

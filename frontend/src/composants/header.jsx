@@ -29,7 +29,7 @@ export default function Header({ terme, results, page, loading, temps, categorie
     const fetchData = async () => {
       try {
         loading(true);
-        let url=`http://localhost:4000/recettes/search?ingredient=${debouncedTerm}&page=1&limit=16`
+        let url=`https://backend-xxr1.onrender.com/recettes/search?ingredient=${debouncedTerm}&page=1&limit=16`
         if(temps!="Temps"){
         const tempsNombre=parseInt(temps.slice(1,3));
          url+=`&temps=${tempsNombre}`

@@ -57,7 +57,7 @@ export default function AjoutRecette({ onClick }) {
             formData.append("type",type);
             formData.append("utilisateurId", user.id);
             try {
-                const response = await axios.post("http://localhost:4000/recettes", formData, {
+                const response = await axios.post("https://backend-xxr1.onrender.com/recettes", formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
@@ -67,7 +67,7 @@ export default function AjoutRecette({ onClick }) {
                     onClick();
                     const idIngredient=response.data.id;
                     const ingredientPromises = selectedIngredients.map((ingredient) => {
-                        return axios.post("http://localhost:4000/recette-ingredient", {
+                        return axios.post("https://backend-xxr1.onrender.com/recette-ingredient", {
                             recetteId: idIngredient,
                             ingredientId: ingredient.id,
                             quantite: ingredient.quantity,
@@ -100,7 +100,7 @@ export default function AjoutRecette({ onClick }) {
         console.log(user.id);
         const fetchIngredients = async () => {
             try {
-                const response = await axios.get("http://localhost:4000/ingredients/all");
+                const response = await axios.get("https://backend-xxr1.onrender.com/ingredients/all");
                 setIngredients(response.data);
             } catch (error) {
                 console.error("Erreur lors de la récupération des ingrédients :", error);

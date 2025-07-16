@@ -8,7 +8,7 @@ export default function FormIngre({onClick,Nom,Categorie, Id, Ajout}) {
   const addingredient = (e) => {
     e.preventDefault();
     if(Nom === "" || Categorie === "") {    
-      axios.post("http://localhost:4000/ingredients", {
+      axios.post("https://backend-xxr1.onrender.com/ingredients", {
       nom: e.target[1].value,
       categorie: e.target[2].value,
     })
@@ -24,7 +24,7 @@ export default function FormIngre({onClick,Nom,Categorie, Id, Ajout}) {
         toast.error("Erreur lors de l'ajout de l'ingrédient");
       });
     }else{
-    axios.put(`http://localhost:4000/ingredients/${Id}`, {
+    axios.put(`https://backend-xxr1.onrender.com/ingredients/${Id}`, {
           nom: e.target[1].value,
           categorie: e.target[2].value,
         })

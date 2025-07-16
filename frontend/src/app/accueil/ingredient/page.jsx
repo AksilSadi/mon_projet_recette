@@ -29,7 +29,7 @@ export default function Ingredient() {
         setId(null);
     }
     const deleteIngredient = (id) => {
-        axios.delete(`http://localhost:4000/ingredients/${id}`)
+        axios.delete(`https://backend-xxr1.onrender.com/ingredients/${id}`)
         .then(response => {
             toast.success("Ingredient supprimé avec succès");
             setSupprime(!supprime);
@@ -71,7 +71,7 @@ export default function Ingredient() {
   const fetchIngredients = async () => {
     try {
      setLoading(true)
-      const response = await axios.get(`http://localhost:4000/ingredients?page=${page}&limit=8`);
+      const response = await axios.get(`https://backend-xxr1.onrender.com/ingredients?page=${page}&limit=8`);
       setIngredients(response.data);
       
     } catch (error) {
