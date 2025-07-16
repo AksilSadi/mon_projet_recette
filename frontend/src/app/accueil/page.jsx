@@ -50,8 +50,8 @@ export default function accueil(){
                     const tempsNombre=parseInt(temps.slice(1,3));
                     url+=`&temps=${tempsNombre}`
                 }
-                if(categorie!="Categorie"){
-                    url+=`&categorie=${categorie}`
+                if (categorie !== "Categorie") {
+                    url += `&categorie=${encodeURIComponent(categorie)}`;
                 }
                 const response = await axios.get(url);
                 console.log(response);
@@ -136,7 +136,7 @@ export default function accueil(){
                                       className={reverse2 ? 'icone rotate' : 'icone'} />
                                  <ul className='absolute -bottom-[200px] h-[180px] overflow-auto left-0 mt-2 w-full bg-gray-600 rounded shadow' style={{ display: reverse2 ? 'block' : 'none' }}>
                                     <li onClick={() => setcategorie("Entrée")} className='p-2 hover:bg-gray-700 cursor-pointer'>Entrée</li>
-                                    <li onClick={() => setcategorie("Plat principal")} className='p-2 hover:bg-gray-700 cursor-pointer'>Plat principal</li>
+                                    <li onClick={() => setcategorie('Plat principal')} className='p-2 hover:bg-gray-700 cursor-pointer'>Plat principal</li>
                                     <li onClick={() => setcategorie("Accompagnement")} className='p-2 hover:bg-gray-700 cursor-pointer'>Accompagnement</li>
                                     <li onClick={() => setcategorie("Dessert")} className='p-2 hover:bg-gray-700 cursor-pointer'>Dessert</li>
                                     <li onClick={() => setcategorie("Soupe")} className='p-2 hover:bg-gray-700 cursor-pointer'>Soupe</li>

@@ -32,6 +32,7 @@ findWithStats(
   @Query('temps') temps?: number,
   @Query('categorie') categorie?: string,
 ) {
+  console.log('Valeur catégorie reçue:', categorie);
   return this.service.findRecettesWithStats(page, limit,temps,categorie);
 }
  @Get('favoris')

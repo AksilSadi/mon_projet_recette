@@ -67,7 +67,7 @@ export class RecetteService {
       query.where('recette.temps <= :temps', { temps });
     }
     if(categorie){
-      query.andWhere('recette.categorie = :categorie', { categorie });
+      query.andWhere('recette.type = :categorie', { categorie });
     }
     const { entities, raw } = await query.getRawAndEntities();
 
@@ -174,9 +174,16 @@ async findRecettesFavoris(utilisateurId:number,page = 1, limit = 5) {
     return recette ? recette.commentaires : [];
   }
 
-  async findRecettesWithStatsFilteredByIngredient(nomIngredient: string, page = 1, limit = 5,temps?:number,categorie?:string) {
+  async findRecettesWithStatsFilteredByIngredient(
+  nomIngredient: string,
+  page = 1,
+  limit = 5,
+  temps?: number,
+  categorie?: string
+) {
   try {
-    const query=this.recetteRepo
+    // 🔍 Première requête : recherche par ingrédient
+    const query = this.recetteRepo
       .createQueryBuilder('recette')
       .leftJoin('recette.commentaires', 'commentaire')
       .leftJoin('recette.notations', 'notation')
@@ -197,14 +204,53 @@ async findRecettesFavoris(utilisateurId:number,page = 1, limit = 5) {
       .addSelect('COUNT(DISTINCT favoris.recetteId)', 'favoriCount')
       .groupBy('recette.id')
       .offset((page - 1) * limit)
-      .limit(limit)
-      if(temps){
-        query.andWhere('recette.temps <= :temps', { temps });
-      }
-      if(categorie){
-      query.andWhere('recette.type ILIKE :categorie', { categorie: `${categorie}%` });
+      .limit(limit);
+
+    if (temps) {
+      query.andWhere('recette.temps <= :temps', { temps });
     }
-    const { entities, raw } = await query.getRawAndEntities();
+
+    if (categorie) {
+      query.andWhere('recette.type ILIKE :cat', { cat: `${categorie}%` });
+    }
+
+    let { entities, raw } = await query.getRawAndEntities();
+
+    // ❗️Si aucun résultat → faire une 2e requête sur le titre
+    if (entities.length === 0) {
+      const fallbackQuery = this.recetteRepo
+        .createQueryBuilder('recette')
+        .leftJoin('recette.commentaires', 'commentaire')
+        .leftJoin('recette.notations', 'notation')
+        .leftJoin('recette.favoris', 'favoris')
+        .where('recette.titre ILIKE :titre', { titre: `${nomIngredient}%` })
+        .select([
+          'recette.id',
+          'recette.titre',
+          'recette.description',
+          'recette.etapes',
+          'recette.temps',
+          'recette.image',
+        ])
+        .addSelect('COUNT(DISTINCT commentaire.id)', 'commentCount')
+        .addSelect('AVG(notation.note)', 'averageRating')
+        .addSelect('COUNT(DISTINCT favoris.recetteId)', 'favoriCount')
+        .groupBy('recette.id')
+        .offset((page - 1) * limit)
+        .limit(limit);
+
+      if (temps) {
+        fallbackQuery.andWhere('recette.temps <= :temps', { temps });
+      }
+
+      if (categorie) {
+        fallbackQuery.andWhere('recette.type ILIKE :cat', { cat: `${categorie}%` });
+      }
+
+      const fallbackResult = await fallbackQuery.getRawAndEntities();
+      entities = fallbackResult.entities;
+      raw = fallbackResult.raw;
+    }
 
     const typedRaw = raw as RawRecetteStats[];
 
@@ -222,9 +268,10 @@ async findRecettesFavoris(utilisateurId:number,page = 1, limit = 5) {
       pageCount: Math.ceil(data.length / limit),
     };
   } catch (error) {
-    console.error('Error fetching recettes with ingredient filter:', error);
+    console.error('Error fetching recettes with ingredient/titre fallback:', error);
     throw new Error('Erreur lors de la recherche de recettes.');
   }
 }
+
 
 }
