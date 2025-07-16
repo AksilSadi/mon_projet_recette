@@ -93,7 +93,7 @@ export default function Ingredient() {
             <main className="w-full h-full mt-10 z-10">
                 <div className="flex justify-between">
                     <p className='font-bold text-white text-2xl'>Ingredients</p>
-                    {user.role==="cuisinier"?<button className='text-white px-2 py-2 rounded-lg boutton flex items-center' style={{backgroundColor:"#0029FF"}} onClick={handleAddIngredient}>
+                    {user?.role==="cuisinier"?<button className='text-white px-2 py-2 rounded-lg boutton flex items-center' style={{backgroundColor:"#0029FF"}} onClick={handleAddIngredient}>
                         <FontAwesomeIcon icon={faPlus} />
                         <p className='ml-2'>Ajouter un ingredient</p>
                     </button>:null}
@@ -122,7 +122,7 @@ export default function Ingredient() {
                                 <td className='p-2'>{ingredient.nom}</td>
                                 <td className='p-2'>{ingredient.categorie}</td>
                                 <td className='p-2'>
-                                    {user.role==="cuisinier"?<button className='text-blue-700 hover:underline hover:cursor-pointer' onClick={() => {
+                                    {user?.role==="cuisinier"?<button className='text-blue-700 hover:underline hover:cursor-pointer' onClick={() => {
                                         setNom(ingredient.nom);
                                         setCategorie(ingredient.categorie);
                                         setId(ingredient.id);
@@ -131,7 +131,7 @@ export default function Ingredient() {
                                     }}>
                                         <FontAwesomeIcon icon={faPen} className='mr-1' />
                                     </button>:null}
-                                    {user.role==="cuisinier"?<button className='text-red-700 hover:underline ml-4 hover:cursor-pointer' onClick={() => deleteIngredient(ingredient.id)}>
+                                    {user?.role==="cuisinier"?<button className='text-red-700 hover:underline ml-4 hover:cursor-pointer' onClick={() => deleteIngredient(ingredient.id)}>
                                         <FontAwesomeIcon icon={faTrash} className='mr-1' />
                                     </button>:null}
                                 </td>
