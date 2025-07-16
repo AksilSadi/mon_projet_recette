@@ -278,7 +278,7 @@ async getFavoriCountByRecetteId(recetteId: number): Promise<{ count: number }> {
   .createQueryBuilder('recette')
   .leftJoin('recette.favoris', 'favoris')
   .where('recette.id = :recetteId', { recetteId })
-  .select('COUNT(favoris.id)', 'count')
+  .select('COUNT(favoris.utilisateurId)', 'count')
   .getRawOne() as { count: string };
 
   return { count: Number(result.count) };
