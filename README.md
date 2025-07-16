@@ -8,7 +8,7 @@ Bienvenue dans l'application **Recette Cuisine**, une plateforme complète perme
 
 > L'application est déjà **entièrement déployée** :
 
-- 🔗 Frontend : [https://recette-frontend.vercel.app](https://recette-frontend.vercel.app)  
+- 🔗 Frontend : [https://frontend-ibnq.onrender.com](https://frontend-ibnq.onrender.com/)  
 - 🔗 Backend API : [https://backend-xxr1.onrender.com](https://backend-xxr1.onrender.com)
 
 ---
