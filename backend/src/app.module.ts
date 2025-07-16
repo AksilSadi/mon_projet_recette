@@ -23,13 +23,18 @@ import { FileController } from './file/file.controller';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'dpg-d1roc77gi27c73ckl74g-a',
+      host: 'dpg-d1roc77gi27c73ckl74g-a.oregon-postgres.render.com',
       port: 5432,
       username: 'recette_cuisine_157f_user',
       password: 'dcre8KJr1qDwkkJTkyIdHMLAmJUCDbYS', 
       database: 'recette_cuisine_157f',
       autoLoadEntities: true,
-      synchronize: false, 
+      synchronize: false,
+      ssl: {
+    rejectUnauthorized: false // Ceci est souvent nécessaire pour les services cloud comme Render
+                              // quand on n'a pas un certificat racine spécifique.
+                              // Pour une sécurité maximale en production, il faudrait un certificat.
+  }
     }),
     TypeOrmModule.forFeature([
       Utilisateur,

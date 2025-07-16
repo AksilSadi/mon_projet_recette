@@ -9,8 +9,8 @@ import { Notation } from './src/notation/notation.entity';
 import { Favoris } from './src/favoris/favoris.entity';
 
 export const AppDataSource = new DataSource({
-     type: 'postgres',
-      host: 'dpg-d1roc77gi27c73ckl74g-a',
+      type: 'postgres',
+      host: 'dpg-d1roc77gi27c73ckl74g-a.oregon-postgres.render.com',
       port: 5432,
       username: 'recette_cuisine_157f_user',
       password: 'dcre8KJr1qDwkkJTkyIdHMLAmJUCDbYS', 
@@ -18,4 +18,9 @@ export const AppDataSource = new DataSource({
   entities: [Utilisateur, Recette, Ingredient, RecetteIngredient, Commentaire, Notation, Favoris],
   migrations: ['src/migrations/*.ts'],
   synchronize: false,
+  ssl: {
+    rejectUnauthorized: false // Ceci est souvent nécessaire pour les services cloud comme Render
+                              // quand on n'a pas un certificat racine spécifique.
+                              // Pour une sécurité maximale en production, il faudrait un certificat.
+  }
 });
