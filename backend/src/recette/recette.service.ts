@@ -56,7 +56,7 @@ export class RecetteService {
       'recette.image',
       'recette.type',
     ])
-    .addSelect('COUNT(DISTINCT recetteId.id)', 'commentCount')
+    .addSelect('COUNT(DISTINCT commentaire.id)', 'commentCount')
     .addSelect('AVG(notation.note)', 'averageRating')
     .addSelect('COUNT(*)', 'favoriCount')
     .groupBy('recette.id')
