@@ -12,14 +12,14 @@ export class NotationService {
 
   // creer ou mettre à jour une notation
   async rate(data: Partial<Notation>): Promise<Notation> {
-  if (!data.utilisateur?.id || !data.recette?.id || typeof data.note !== 'number') {
+  if (!data.utilisateurId || !data.recetteId || typeof data.note !== 'number') {
     throw new Error("Données de notation incomplètes");
   }
 
   const existing = await this.notationRepo.findOne({
     where: {
-      utilisateur: { id: data.utilisateur.id },
-      recette: { id: data.recette.id },
+      utilisateur: { id: data.utilisateurId },
+      recette: { id: data.recetteId },
     },
   });
 
@@ -29,8 +29,8 @@ export class NotationService {
   }
 
   const newNotation = this.notationRepo.create({
-    utilisateur: { id: data.utilisateur.id },
-    recette: { id: data.recette.id },
+    utilisateur: { id: data.utilisateurId },
+    recette: { id: data.recetteId },
     note: data.note,
   });
 
