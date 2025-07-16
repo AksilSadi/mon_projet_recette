@@ -58,7 +58,7 @@ export class RecetteService {
     ])
     .addSelect('COUNT(DISTINCT commentaire.id)', 'commentCount')
     .addSelect('AVG(notation.note)', 'averageRating')
-    .addSelect('COUNT(*)', 'favoriCount')
+    .addSelect('COUNT(favoris.recetteId)', 'favoriCount')
     .groupBy('recette.id')
     .offset((page - 1) * limit)
     .limit(limit)
