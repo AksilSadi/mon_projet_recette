@@ -56,9 +56,9 @@ export class RecetteService {
       'recette.image',
       'recette.type',
     ])
-    .addSelect('COUNT(DISTINCT commentaire.id)', 'commentCount')
+    .addSelect('COUNT(DISTINCT recetteId.id)', 'commentCount')
     .addSelect('AVG(notation.note)', 'averageRating')
-    .addSelect('COUNT(DISTINCT favoris.recetteId)', 'favoriCount')
+    .addSelect('COUNT(DISTINCT favoris.utilisateurId)', 'favoriCount')
     .groupBy('recette.id')
     .offset((page - 1) * limit)
     .limit(limit)
@@ -110,7 +110,7 @@ async findRecettesFavoris(utilisateurId:number,page = 1, limit = 5) {
     ])
     .addSelect('COUNT(DISTINCT commentaire.id)', 'commentCount')
     .addSelect('AVG(notation.note)', 'averageRating')
-    .addSelect('COUNT(DISTINCT favoris.recetteId)', 'favoriCount')
+    .addSelect('COUNT(DISTINCT favoris.utilisateurId)', 'favoriCount')
     .groupBy('recette.id')
     .offset((page - 1) * limit)
     .limit(limit)
@@ -201,7 +201,7 @@ async findRecettesFavoris(utilisateurId:number,page = 1, limit = 5) {
       ])
       .addSelect('COUNT(DISTINCT commentaire.id)', 'commentCount')
       .addSelect('AVG(notation.note)', 'averageRating')
-      .addSelect('COUNT(DISTINCT favoris.recetteId)', 'favoriCount')
+      .addSelect('COUNT(DISTINCT favoris.utilisateurId)', 'favoriCount')
       .groupBy('recette.id')
       .offset((page - 1) * limit)
       .limit(limit);
@@ -234,7 +234,7 @@ async findRecettesFavoris(utilisateurId:number,page = 1, limit = 5) {
         ])
         .addSelect('COUNT(DISTINCT commentaire.id)', 'commentCount')
         .addSelect('AVG(notation.note)', 'averageRating')
-        .addSelect('COUNT(DISTINCT favoris.recetteId)', 'favoriCount')
+        .addSelect('COUNT(DISTINCT favoris.utilisateurId)', 'favoriCount')
         .groupBy('recette.id')
         .offset((page - 1) * limit)
         .limit(limit);
