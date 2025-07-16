@@ -38,6 +38,10 @@ export default function favoris(){
         fetchFavoris();
     }, [user, page]);
 
+
+
+    
+
     const getPaginationRange = (current, total) => {
     const delta = 2; // Nombre de pages à afficher de chaque côté de la page actuelle
     const range = [];

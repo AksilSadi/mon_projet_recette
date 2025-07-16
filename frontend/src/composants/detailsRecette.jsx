@@ -18,7 +18,7 @@ export default function DetailsRecette({ recette }) {
     const[loadingAddcomment,setLoadingAddComment]=useState(false);
     const[loadingstar,setLoadingStar]=useState(false);
     const[loadindrating,setLoadingRating]=useState(false);
-    const [note, setNote] = useState(null);
+    const [note, setNote] = useState(0);
     const [ingredients, setIngredients] = useState([]);
     const etapesArray = recette.etapes.split("\r\n");
     const [comments, setComments] = useState([]);
@@ -170,14 +170,14 @@ export default function DetailsRecette({ recette }) {
         }
     };
     const handleRateClick = async () => {
-        if (note === null) {
+        if (note === 0) {
             toast.error("Veuillez sélectionner une note avant de soumettre.");
             return;
         }
         setLoadingStar(true);
         try {
             const response = await axios.post(`https://backend-xxr1.onrender.com/notation`, {
-                note: note,
+                note: parseInt(note),
                 utilisateurId: user.id,
                 recetteId: recette.id,
             });
@@ -219,7 +219,7 @@ export default function DetailsRecette({ recette }) {
                 <div className="flex justify-center mb-4">
                   <Rating
                         name="film-rating"
-                        value={note}
+                        value={note ?? 0}
                         max={5} 
                         precision={1} 
                         onChange={(e) => {
@@ -230,10 +230,10 @@ export default function DetailsRecette({ recette }) {
                 </div>
         
                 <button className={`w-[200px] px-6 py-2 rounded-full anime transition-colors duration-300
-                    ${note === null
+                    ${note === 0
                     ? 'bg-gray-600 text-white opacity-50 cursor-not-allowed'
                     : 'bg-yellow-400 text-black hover:bg-yellow-500 cursor-pointer'}
-                `} onClick={handleRateClick} disabled={note === null}>
+                `} onClick={handleRateClick} disabled={note === 0}>
                   {loadingstar ? (
                 <>
                   <div className="w-2 h-2 border-2 border-gray-100 border-t-transparent rounded-full animate-spin" />
@@ -274,16 +274,16 @@ export default function DetailsRecette({ recette }) {
                 <div className="flex mt-4 items-center">
                     {loading?<div className="w-8 h-8 border-4 border-green-400 border-t-transparent rounded-full animate-spin"></div>
                     :<div className='flex justify-between items-center'>
-                     {note!=null?<p className="text-lg text-gray-200">Ma note</p>:null}
+                     {(note && note!=0)?<p className="text-lg text-gray-200">Ma note</p>:null}
                 <div className="flex items-center px-4 py-0.5 rounded-2xl hover:bg-gray-500 group cursor-pointer" style={{ '--tw-bg-opacity': '0.2' }} onClick={()=>setIsModalOpen(true)}>
                     <FontAwesomeIcon
                         icon={faStar}
                         className={`w-5 h-5 stroke-yellow-400 ${
-                            note !== null ? 'text-yellow-400' : 'text-transparent'
+                            note !== 0 ? 'text-yellow-400' : 'text-transparent'
                         }`}
                         style={{ strokeWidth: 40 }}
                         />
-                  <p className="text-lg ml-2 text-yellow-400">{note==null?`Noter`:`${note}/5`}</p>
+                  <p className="text-lg ml-2 text-yellow-400">{(note===0 ||note===undefined)?`Noter`:`${note}/5`}</p>
                 </div>                
                     </div>}
                     

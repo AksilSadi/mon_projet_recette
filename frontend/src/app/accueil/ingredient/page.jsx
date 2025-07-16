@@ -7,6 +7,7 @@ import React, { use, useState,useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import FormIngre from '../../../composants/formulaireIngr'
 import axios from 'axios';
+import { useUser } from '../../../context/UserContext.jsx';
 export default function Ingredient() {
     const [ingredients, setIngredients] = useState([]);
     const [showForm, setShowForm] = useState(false);
@@ -18,6 +19,7 @@ export default function Ingredient() {
     const totalPages = Math.ceil(((ingredients?.total)|| 8)/8) || 1;
     const [ajout, setAjout] = useState(false);
     const[loading,setLoading] = useState(false);
+    const { user } = useUser();
 
     const handleAddIngredient = () => {
         setShowForm(!showForm);
@@ -91,10 +93,10 @@ export default function Ingredient() {
             <main className="w-full h-full mt-10 z-10">
                 <div className="flex justify-between">
                     <p className='font-bold text-white text-2xl'>Ingredients</p>
-                    <button className='text-white px-2 py-2 rounded-lg boutton flex items-center' style={{backgroundColor:"#0029FF"}} onClick={handleAddIngredient}>
+                    {user.role==="cuisinier"?<button className='text-white px-2 py-2 rounded-lg boutton flex items-center' style={{backgroundColor:"#0029FF"}} onClick={handleAddIngredient}>
                         <FontAwesomeIcon icon={faPlus} />
                         <p className='ml-2'>Ajouter un ingredient</p>
-                    </button>
+                    </button>:null}
                 </div>
                 <div className='mt-4 backdrop-blur-md bg-white/10 border border-white/20 rounded-xl px-4 py-2 shadow-lg mx-2'>
                 <table className='w-full text-left text-white border-separate border-spacing-y-2'>
@@ -103,7 +105,7 @@ export default function Ingredient() {
                             <th className='p-2'>Id</th>
                             <th className='p-2'>Nom</th>
                             <th className='p-2'>Catégorie</th>
-                            <th className='p-2'>Actions</th>
+                            {user.role==="cuisinier"?<th className='p-2'>Actions</th>:null}
                         </tr>
                     </thead>
                     <tbody>
@@ -120,7 +122,7 @@ export default function Ingredient() {
                                 <td className='p-2'>{ingredient.nom}</td>
                                 <td className='p-2'>{ingredient.categorie}</td>
                                 <td className='p-2'>
-                                    <button className='text-blue-700 hover:underline hover:cursor-pointer' onClick={() => {
+                                    {user.role==="cuisinier"?<button className='text-blue-700 hover:underline hover:cursor-pointer' onClick={() => {
                                         setNom(ingredient.nom);
                                         setCategorie(ingredient.categorie);
                                         setId(ingredient.id);
@@ -128,10 +130,10 @@ export default function Ingredient() {
                                         
                                     }}>
                                         <FontAwesomeIcon icon={faPen} className='mr-1' />
-                                    </button>
-                                    <button className='text-red-700 hover:underline ml-4 hover:cursor-pointer' onClick={() => deleteIngredient(ingredient.id)}>
+                                    </button>:null}
+                                    {user.role==="cuisinier"?<button className='text-red-700 hover:underline ml-4 hover:cursor-pointer' onClick={() => deleteIngredient(ingredient.id)}>
                                         <FontAwesomeIcon icon={faTrash} className='mr-1' />
-                                    </button>
+                                    </button>:null}
                                 </td>
                             </tr>
                         )):<tr>

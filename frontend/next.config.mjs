@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'https://backend-xxr1.onrender.com',
+        hostname: 'backend-xxr1.onrender.com',
         pathname: '/file/**',
       },
     ],

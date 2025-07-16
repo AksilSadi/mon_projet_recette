@@ -1,8 +1,22 @@
+"use client"
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faHeart, faComment } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image'
+import axios from "axios";
 export default function Card({recette, onClick}) {
+  const [likes,setLikes]=useState(recette.favoriCount);
+      useEffect(() => {
+        const fetchFavoris = async () => {
+            try {
+                const response = await axios.get(`https://backend-xxr1.onrender.com/recettes/${recette.id}/favoris/count`);
+                setLikes(response.data.count);
+            } catch (error) {
+                console.error("Error fetching favoris:", error);
+            } 
+        };
+        fetchFavoris();
+    }, [recette]);
     return (
         <div key={recette.id} className="flex flex-col rounded-lg w-56 mr-6 px-6 py-4 bg-white/15 backdrop-blur-md anime" onClick={()=>onClick(recette)}>
             <Image
@@ -23,7 +37,7 @@ export default function Card({recette, onClick}) {
                 </div>
                 <div className="flex mr-2">
                   <FontAwesomeIcon icon={faHeart} className="text-lg w-3 text-red-600" />
-                  <li className="list-none ml-1 text-base text-white text-[12px]">{`${recette.favoriCount}`}</li>
+                  <li className="list-none ml-1 text-base text-white text-[12px]">{`${likes}`}</li>
                 </div>
                 <div className="flex mr-2">
                   <FontAwesomeIcon icon={faComment} className="text-lg w-3 text-white" />

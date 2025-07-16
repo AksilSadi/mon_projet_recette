@@ -10,7 +10,9 @@ import { useState } from 'react';
 import axios from 'axios';
 import Card from '../../composants/card';
 import DetailsRecette from '../../composants/detailsRecette.jsx';
+import { useUser } from '../../context/UserContext';
 export default function accueil(){
+    const { user } = useUser();
     const [showForm, setShowForm] = useState(false);
     const[recettes, setRecettes] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -186,14 +188,14 @@ export default function accueil(){
             <main className="w-full h-full mt-10">
                 <div className="flex justify-between">
                 <p className='font-bold text-white text-2xl'>Recettes</p>
-                <button
+                {user?.role==="cuisinier"?<button
                     className='text-white px-2 py-2 rounded-lg mb-8 boutton flex items-center'
                     style={{ backgroundColor: "#0029FF" }}
                     onClick={handleAddRecette}
                 >
                     <FontAwesomeIcon icon={faPlus} />
                     <p className="ml-2">Ajouter une recette</p>
-                </button>
+                </button>:null}
                 </div>
                 <div className='flex items-center z-2 relative'>
                 <p className='font-semibold text-gray-100 text-md'>Filters:</p>
