@@ -19,4 +19,9 @@ export class Commentaire {
   @ManyToOne(() => Utilisateur, (utilisateur) => utilisateur.commentaires, { eager: true, onDelete: 'SET NULL' })
   @JoinColumn({ name: 'utilisateurId' })
   utilisateur: Utilisateur;
+
+  @Column({ nullable: false })
+  recetteId: number;
+  @Column({ nullable: false })
+  utilisateurId: number;
 }

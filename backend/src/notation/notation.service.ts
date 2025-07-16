@@ -45,4 +45,12 @@ export class NotationService {
       where: { recette: { id: recetteId } },
     });
   }
+  async findByUserAndRecette(utilisateurId: number, recetteId: number): Promise<Notation | null> {
+  return this.notationRepo.findOne({
+    where: {
+      utilisateur: { id: utilisateurId },
+      recette: { id: recetteId }
+    }
+  });
+}
 }

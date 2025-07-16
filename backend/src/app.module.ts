@@ -16,6 +16,9 @@ import { RecetteIngredient } from './recette-ingredient/recette-ingredient.entit
 import { Commentaire } from './commentaire/commentaire.entity';
 import { Notation } from './notation/notation.entity';
 import { Favoris } from './favoris/favoris.entity';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+import { FileController } from './file/file.controller';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -45,7 +48,7 @@ import { Favoris } from './favoris/favoris.entity';
     NotationModule,
     FavorisModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController,FileController],
   providers: [AppService],
 })
 export class AppModule {}

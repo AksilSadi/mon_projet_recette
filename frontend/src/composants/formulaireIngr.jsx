@@ -77,6 +77,10 @@ export default function FormIngre({onClick,Nom,Categorie, Id, Ajout}) {
               <option value="viande">Viande</option>
               <option value="poisson">Poisson</option>
               <option value="produit laitier">Produit laitier</option>
+              <option value="Pâtes">Pâtes</option>
+              <option value="Huile">Huile</option>
+              <option value="Épices">Épices</option>
+              <option value="Herbes">Herbes</option>
               <option value="autre">Autre</option>
             </select>
             <button

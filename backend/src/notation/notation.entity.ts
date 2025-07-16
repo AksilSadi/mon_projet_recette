@@ -14,8 +14,12 @@ export class Notation {
   @ManyToOne(() => Recette, (recette) => recette.notations, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'recetteId' })
   recette: Recette;
+  @Column()
+  recetteId: number;
 
   @ManyToOne(() => Utilisateur, (utilisateur) => utilisateur.notations, { eager: true, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'utilisateurId' })
   utilisateur: Utilisateur;
+  @Column()
+  utilisateurId: number;
 }

@@ -13,6 +13,10 @@ findPaginated(
 ) {
   return this.service.findPaginated(page, limit);
 }
+@Get('all')
+findAll(): Promise<Ingredient[]> {
+  return this.service.findAll();
+}
 
   @Get(':id')
   findOne(@Param('id') id: string): Promise<Ingredient | null> {

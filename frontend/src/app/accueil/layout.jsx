@@ -14,20 +14,19 @@ export default function RootLayout({ children }) {
   };
 
   return (
-    <div className="w-screen h-full">
-        <Toaster position="top-center" /> 
-
-        <div 
-          className="relative w-screen min-h-screen flex" 
-          style={{ 
+    <div className="w-screen h-screen overflow-auto" style={{ 
             backgroundImage: "url('/background7.jpg')", 
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundAttachment: "fixed",
-          }}
-        >
-          <div className="absolute inset-0 bg-black/40 z-0">
+          }}>
+        <Toaster position="top-center" /> 
+        <div className="absolute inset-0 bg-black/40 z-0 min-h-screen">
           </div>
+        <div 
+          className="relative h-screen overflow-auto w-full" 
+        >
+          
           
           <div 
             className={`w-[200px] h-screen fixed top-0 left-0 bg-white/15 backdrop-blur-md rounded-xl shadow-lg border border-white/20 flex flex-col items-start p-3`}
@@ -51,10 +50,10 @@ export default function RootLayout({ children }) {
               </Link>
 
               
-              <li className={`mt-1 flex items-center py-2 h-14 rounded-2xl pl-3 hover:bg-white/10 transition-colors cursor-pointer`}>
+              <Link href="/accueil/favoris" className={`mt-1 flex items-center py-2 h-14 rounded-2xl pl-3 hover:bg-white/10 transition-colors cursor-pointer`}>
                 <FontAwesomeIcon icon={faHeart} className='text-lg w-5 text-white' />
                 <span className='ml-3 text-base text-white'>Favoris</span>
-              </li>
+              </Link>
             </ul>
 
            

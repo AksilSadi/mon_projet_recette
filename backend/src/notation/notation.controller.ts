@@ -21,4 +21,11 @@ export class NotationController {
     const avg = await this.service.averageByRecette(+id);
     return { average: avg };
   }
+  @Get('recette/:recetteId/utilisateur/:utilisateurId')
+  async getUserNote(
+    @Param('recetteId') recetteId: number,
+    @Param('utilisateurId') utilisateurId: number
+  ): Promise<Notation | null> {
+    return this.service.findByUserAndRecette(utilisateurId, recetteId);
+  }
 }

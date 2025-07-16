@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne,OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne,OneToMany,JoinColumn } from 'typeorm';
 import { Utilisateur } from '../utilisateur/utilisateur.entity';
 import { RecetteIngredient } from '../recette-ingredient/recette-ingredient.entity';
 import { Commentaire } from '../commentaire/commentaire.entity';
@@ -20,13 +20,20 @@ export class Recette {
   etapes: string;
 
   @Column()
-  temps: number; 
+  temps: number;
+
+  @Column()
+  type:string;
 
   @Column({ nullable: true })
   image: string;
 
-  @ManyToOne(() => Utilisateur, (utilisateur) => utilisateur.recettes, { eager: true })
+  @ManyToOne(() => Utilisateur, utilisateur => utilisateur.recettes)
+  @JoinColumn({ name: 'utilisateurId' })
   utilisateur: Utilisateur;
+
+  @Column()
+  utilisateurId: number;
 
   @OneToMany(() => RecetteIngredient, (ri) => ri.recette, { cascade: true })
   recetteIngredients: RecetteIngredient[];

@@ -11,9 +11,15 @@ export class RecetteIngredient {
   @JoinColumn({ name: 'recetteId' })
   recette: Recette;
 
+  @Column()
+  recetteId: number;
+
   @ManyToOne(() => Ingredient, (ingredient) => ingredient.recetteIngredients, { eager: true, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'ingredientId' })
   ingredient: Ingredient;
+
+  @Column()
+  ingredientId: number;
 
   @Column('float')
   quantite: number;

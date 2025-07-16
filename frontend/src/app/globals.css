@@ -10,6 +10,7 @@
 
 .hi{
     height:100%
+    
 }
 #error{
     outline: none;
@@ -83,7 +84,6 @@
     width: 100%;
     background-color: rgb(110, 110, 110);
     border-radius: 10px;
-    overflow: hidden;
     color:white;
     transition: all 0.3s;
     border: 1px solid white;

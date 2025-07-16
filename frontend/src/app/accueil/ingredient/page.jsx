@@ -15,8 +15,9 @@ export default function Ingredient() {
     const [categorie, setCategorie] = useState("");
     const [id, setId] = useState(null);
     const [page, setPage] = useState(1);
-    const totalPages = Math.ceil(((ingredients?.total)|| 10)/10) || 1;
+    const totalPages = Math.ceil(((ingredients?.total)|| 8)/8) || 1;
     const [ajout, setAjout] = useState(false);
+    const[loading,setLoading] = useState(false);
 
     const handleAddIngredient = () => {
         setShowForm(!showForm);
@@ -69,12 +70,14 @@ export default function Ingredient() {
   useEffect(() => {
   const fetchIngredients = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/ingredients?page=${page}&limit=10`);
+     setLoading(true)
+      const response = await axios.get(`http://localhost:4000/ingredients?page=${page}&limit=8`);
       setIngredients(response.data);
-      console.log(response.data);
       
     } catch (error) {
       toast.error(error.message || "Erreur lors de la récupération des ingrédients");
+    }finally{
+        setLoading(false);
     }
   };
   fetchIngredients();
@@ -88,12 +91,12 @@ export default function Ingredient() {
             <main className="w-full h-full mt-10 z-10">
                 <div className="flex justify-between">
                     <p className='font-bold text-white text-2xl'>Ingredients</p>
-                    <button className='text-white px-2 py-2 rounded-lg mb-8 boutton flex items-center' style={{backgroundColor:"#0029FF"}} onClick={handleAddIngredient}>
+                    <button className='text-white px-2 py-2 rounded-lg boutton flex items-center' style={{backgroundColor:"#0029FF"}} onClick={handleAddIngredient}>
                         <FontAwesomeIcon icon={faPlus} />
                         <p className='ml-2'>Ajouter un ingredient</p>
                     </button>
                 </div>
-                <div className='mt-4 backdrop-blur-md bg-white/10 border border-white/20 rounded-xl p-6 shadow-lg mx-2'>
+                <div className='mt-4 backdrop-blur-md bg-white/10 border border-white/20 rounded-xl px-4 py-2 shadow-lg mx-2'>
                 <table className='w-full text-left text-white border-separate border-spacing-y-2'>
                     <thead className='text-gray-300'>
                         <tr className='border-b border-white/20'>
@@ -104,7 +107,14 @@ export default function Ingredient() {
                         </tr>
                     </thead>
                     <tbody>
-                        {ingredients?.data?.map((ingredient) => (
+                        {loading ? (
+                            <tr>
+                            <td colSpan={4} className="text-center py-4 text-white">
+                                Chargement...
+                            </td>
+                            </tr>)
+                        :ingredients?.data?.length > 0?
+                        ingredients?.data?.map((ingredient) => (
                             <tr key={ingredient.id} className='border-b border-white/20 hover:scale-[1.05] transition-all duration-300 hover:bg-white/60 opacity-70'>
                                 <td className='p-2'>{ingredient.id}</td>
                                 <td className='p-2'>{ingredient.nom}</td>
@@ -124,7 +134,11 @@ export default function Ingredient() {
                                     </button>
                                 </td>
                             </tr>
-                        ))}
+                        )):<tr>
+                            <td colSpan={4} className="text-center py-4 text-white">
+                                Aucun ingrédient trouvé
+                            </td>
+                            </tr>}
                     </tbody>
                 </table>
                 <div className='flex justify-center items-center mt-4'>
