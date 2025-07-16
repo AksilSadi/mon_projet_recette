@@ -60,6 +60,10 @@ findWithStats(
   findOne(@Param('id') id: string): Promise<Recette | null> {
     return this.service.findOne(+id);
   }
+  @Get(':id/favoris/count')
+  getFavoriCount(@Param('id', ParseIntPipe) id: number) {
+    return this.service.getFavoriCountByRecetteId(id);
+  }
 
   @Post()
   @UseInterceptors(FileInterceptor('image', {

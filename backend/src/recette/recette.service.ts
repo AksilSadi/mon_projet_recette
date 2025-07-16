@@ -273,5 +273,16 @@ async findRecettesFavoris(utilisateurId:number,page = 1, limit = 5) {
   }
 }
 
+async getFavoriCountByRecetteId(recetteId: number): Promise<{ count: number }> {
+  const result = await this.recetteRepo
+  .createQueryBuilder('recette')
+  .leftJoin('recette.favoris', 'favoris')
+  .where('recette.id = :recetteId', { recetteId })
+  .select('COUNT(favoris.id)', 'count')
+  .getRawOne() as { count: string };
+
+  return { count: Number(result.count) };
+}
+
 
 }
