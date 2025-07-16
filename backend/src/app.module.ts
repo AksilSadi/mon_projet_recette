@@ -23,7 +23,7 @@ import { FileController } from './file/file.controller';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: 'dpg-d1roc77gi27c73ckl74g-a',
       port: 5432,
       username: 'recette_cuisine_157f_user',
       password: 'dcre8KJr1qDwkkJTkyIdHMLAmJUCDbYS', 

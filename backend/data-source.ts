@@ -9,12 +9,12 @@ import { Notation } from './src/notation/notation.entity';
 import { Favoris } from './src/favoris/favoris.entity';
 
 export const AppDataSource = new DataSource({
-  type: 'postgres',
-  host: 'localhost',
-  port: 5433,
-  username: 'postgres',
-  password: 'lionel12',
-  database: 'recette_cuisine',
+     type: 'postgres',
+      host: 'dpg-d1roc77gi27c73ckl74g-a',
+      port: 5432,
+      username: 'recette_cuisine_157f_user',
+      password: 'dcre8KJr1qDwkkJTkyIdHMLAmJUCDbYS', 
+      database: 'recette_cuisine_157f',
   entities: [Utilisateur, Recette, Ingredient, RecetteIngredient, Commentaire, Notation, Favoris],
   migrations: ['src/migrations/*.ts'],
   synchronize: false,
