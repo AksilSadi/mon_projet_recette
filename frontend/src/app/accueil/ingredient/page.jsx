@@ -105,7 +105,7 @@ export default function Ingredient() {
                             <th className='p-2'>Id</th>
                             <th className='p-2'>Nom</th>
                             <th className='p-2'>Catégorie</th>
-                            {user.role==="cuisinier"?<th className='p-2'>Actions</th>:null}
+                            {user?.role==="cuisinier"?<th className='p-2'>Actions</th>:null}
                         </tr>
                     </thead>
                     <tbody>
