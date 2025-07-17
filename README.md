@@ -73,6 +73,7 @@ Next.js:15.3.5
 ```bash
 cd frontend
 npm install
+npm run build
 npm run dev
 ```
 Le frontend sera disponible sur http://localhost:3000

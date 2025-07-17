@@ -79,7 +79,11 @@ export default function favoris(){
                 </div>
                 </div>
             </header>
-            <div className="flex justify-between items-center z-10 mt-20 h-fit">
+            {showDetails ? (
+                        <DetailsRecette recette={selectedRecette} />
+                        ) :
+            <main>
+                <div className="flex justify-between items-center z-10 mt-20 h-fit">
                 <p className="text-2xl font-bold text-white">Favoris</p>
             </div>
             {loading ? (
@@ -102,6 +106,8 @@ export default function favoris(){
                     ))}
                 </ul>
                 </div>
+            </main>}
+            
         </div>
     );
 }
