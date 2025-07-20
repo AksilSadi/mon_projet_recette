@@ -6,7 +6,7 @@ async function bootstrap() {
     logger: ['error', 'warn', 'debug', 'log'],
   });
   app.enableCors({
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000', 'https://frontend-ibnq.onrender.com'],
     credentials: true,
   });
   await app.listen(process.env.PORT ?? 4000);
